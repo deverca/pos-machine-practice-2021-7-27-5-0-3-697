@@ -23,8 +23,11 @@ public class PosMachine {
 
         return price * quantity;
     }
+    public double calculateTotal(List<Double> subTotals){
+        return subTotals.stream().mapToDouble(a->a).sum();
+    }
 
-    
+
     public String printReceipt(List<String> barcodes) {
 
      return null;
