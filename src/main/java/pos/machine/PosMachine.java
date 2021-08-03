@@ -19,7 +19,12 @@ public class PosMachine {
         return productDetails.size();
     }
 
+    public double calculateSubTotal(double price, int quantity){
 
+        return price * quantity;
+    }
+
+    
     public String printReceipt(List<String> barcodes) {
 
      return null;
