@@ -27,6 +27,12 @@ public class PosMachine {
         return subTotals.stream().mapToDouble(a->a).sum();
     }
 
+    public String generateReceiptDetails(int quantity, double subtotal, List<ItemInfo> productDetails){
+        return "Name: "+productDetails.get(0).getName()+", Quantity: "+quantity
+                +", Unit price: " + productDetails.get(0).getPrice() + "(yuan), Subtotal: "+ subtotal + "(yuan)\n";
+
+    }
+
 
     public String printReceipt(List<String> barcodes) {
 
