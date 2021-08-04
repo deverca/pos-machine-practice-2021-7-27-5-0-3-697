@@ -51,13 +51,15 @@ public class PosMachine {
 
             if (!uniqueBarcodes.contains(barcode)) {
                 receipt.append(generateReceiptDetails(quantity, subTotal, productDetails));
-
+                subTotals.add(subTotal);
             }
             uniqueBarcodes.add(barcode);
-            subTotals.add(subTotal);
+
         }
 
+        receipt.append("----------------------\n");
         receipt.append("Total:").append(calculateTotal(subTotals)).append("(yuan)");
+        receipt.append("\n**********************");
 
         return receipt.toString();
 
