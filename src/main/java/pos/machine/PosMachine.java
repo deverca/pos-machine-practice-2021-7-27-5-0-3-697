@@ -11,14 +11,13 @@ public class PosMachine {
     public List<ItemInfo> generateProductDetails(String barcode) {
 
         return loadAllItemInfos().stream()
-                .filter(itemInfo -> itemInfo.getBarcode().equalsIgnoreCase(barcode)).collect(Collectors.toList());
-
+                .filter(itemInfo -> barcode.equalsIgnoreCase(itemInfo.getBarcode())).collect(Collectors.toList());
     }
 
 
     public int calculateQty(List<String> barcodes, String barcode) {
 
-        return barcodes.stream().filter(code -> code.equalsIgnoreCase(barcode)).collect(Collectors.toList()).size();
+        return (int) barcodes.stream().filter(code -> code.equalsIgnoreCase(barcode)).count();
 
 
     }
@@ -29,18 +28,18 @@ public class PosMachine {
     }
 
     public double calculateTotal(List<Double> subTotals) {
-        return subTotals.stream().mapToDouble(a -> a).sum();
+        return subTotals.stream().mapToDouble(price -> price).sum();
     }
 
     public String generateReceiptDetails(int quantity, double subtotal, List<ItemInfo> productDetails) {
         return "Name: " + productDetails.get(0).getName() + ", Quantity: " + quantity
-                + ", Unit price: " + productDetails.get(0).getPrice() + "(yuan), Subtotal: " + subtotal + "(yuan)\n";
+                + ", Unit price: " + productDetails.get(0).getPrice() + " (yuan), Subtotal: " + (int)subtotal + " (yuan)\n";
 
     }
 
 
     public String printReceipt(List<String> barcodes) {
-        StringBuilder receipt = new StringBuilder("***<store earning no money>Receipt ***\n");
+        StringBuilder receipt = new StringBuilder("***<store earning no money>Receipt***\n");
         List<Double> subTotals = new ArrayList<>();
         List<String> uniqueBarcodes = new ArrayList<>();
 
@@ -58,7 +57,7 @@ public class PosMachine {
         }
 
         receipt.append("----------------------\n");
-        receipt.append("Total:").append(calculateTotal(subTotals)).append("(yuan)");
+        receipt.append("Total: ").append((int)calculateTotal(subTotals)).append(" (yuan)");
         receipt.append("\n**********************");
 
         return receipt.toString();
